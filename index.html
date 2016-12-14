@@ -41,7 +41,7 @@ Did you find the file? Great, now check out the other files in the project.</p>
 <a id="step-2" class="anchor" href="#step-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 2</h3>
 
 <p>Let's start with the first endpoint in the IssueController.
-Create a mehtod that a string returns. For example:</p>
+Create a method that can return a string. For example:</p>
 
 <pre><code>public String firstEndpoint() {
     return "You wrote your first endpoint.";
@@ -53,7 +53,7 @@ Create a mehtod that a string returns. For example:</p>
 <pre><code>@RequestMapping(value="/firstendpoint", method=RequestMethod.GET)
 </code></pre>
 
-<p>The spring framework map the method with the annotation <em>@RequestMapping</em> to a url path. To seperate each method a url is defined, the variable <em>value</em> define the second part of the url after http://localhost:8080. 
+<p>The spring framework maps the method with the annotation <em>@RequestMapping</em> to a url path. To separate each method a url is defined, the variable <em>value</em> defines the second part of the url after http://localhost:8080. 
 In this example:</p>
 
 <pre><code>http://localhost:8080/firstendpoint
@@ -74,28 +74,28 @@ In this example:</p>
 <li>Database</li>
 </ul>
 
-<p>ToDo:
-A endpoint to retieve an issue  </p>
+<p>ToDo:<br/>
+An endpoint to retieve an issue.  </p>
 
 <pre><code>GET /issues/{id} 
 </code></pre>
 
-<p>A endpoint to create an issue   </p>
+<p>An endpoint to create an issue.   </p>
 
 <pre><code>POST /issues
 </code></pre>
 
-<p>A endpoint to delete an issue                 </p>
+<p>An endpoint to delete an issue.                 </p>
 
 <pre><code>DELETE /issues/{id} 
 </code></pre>
 
-<p>A endpoint to update an issue                 </p>
+<p>An endpoint to update an issue.                 </p>
 
 <pre><code>PUT /issues/{id} 
 </code></pre>
 
-<p>A endpoint to retrieve a list of all issues   </p>
+<p>An endpoint to retrieve a list of all issues.   </p>
 
 <pre><code>GET /issues 
 </code></pre>
@@ -103,17 +103,17 @@ A endpoint to retieve an issue  </p>
 <h3>
 <a id="step-4" class="anchor" href="#step-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 4</h3>
 
-<p>Start with the endpoint that retrieve an certain issue. Create a methode like in step 2. Change the url path to:</p>
+<p>Start with the endpoint that retrieves a certain issue. Create a methode like in step 2 and change the url path to:</p>
 
 <pre><code>/issues/{id}
 </code></pre>
 
-<p>To get a ceratin issue we send a http request with the id in the url to the endpoint. To read the id out of the url we add a parameter in the method.</p>
+<p>To get a certain issue we send a http request with the id in the url to the endpoint. To read the id out of the url we add a parameter in the method.</p>
 
 <pre><code>@PathVariable long id
 </code></pre>
 
-<p>The return value and response has to be upadeted to:</p>
+<p>The return value and response has to be updated to:</p>
 
 <pre><code>ResponseEntity&lt;Void&gt;
 return new ResponseEntity(issue, HttpStatus.OK)
@@ -134,12 +134,12 @@ return new ResponseEntity(issue, HttpStatus.OK)
 <pre><code>POST /issues
 </code></pre>
 
-<p>Create a method like descripted in the steps before. To define from which Content-Type the http request is, add in the annotation:</p>
+<p>Create a method like described in the steps before. To define from which Content-Type the http request is, add in the annotation:</p>
 
 <pre><code>consumes=MediaType.APPLICATION_JSON_VALUE
 </code></pre>
 
-<p>This define the how the body of the http request should be written. For our endpoint. To read the values from the http request add the following to the parameter in the method:</p>
+<p>This defines how the body of the http request should be written for the endpoint. To read the values from the http request add the following to the parameter in the method:</p>
 
 <pre><code>@RequestBody Issue issue
 </code></pre>
@@ -149,7 +149,7 @@ return new ResponseEntity(issue, HttpStatus.OK)
 <pre><code>issueRepository.save(new Issue(issue.title, issue.category));
 </code></pre>
 
-<p>Now we can test it. Goto to you restful client call the endpoint and dont forget the body must be json. 
+<p>Now we can test it. Go to your restful client, call the endpoint and don't forget the body must be json. 
 <em>Hint don't forget to change the Content-Type.</em></p>
 
 <pre><code>Content-Type: application/json
@@ -166,7 +166,7 @@ return new ResponseEntity(issue, HttpStatus.OK)
 <pre><code>POST on http://localhost:8080/issues
 </code></pre>
 
-<p>After adding some issues try to call a certain issue with a id.</p>
+<p>After adding some issues try to call a certain issue with an id.</p>
 
 <pre><code>GET on http://localhost:8080/issues/1
 </code></pre>
@@ -174,21 +174,21 @@ return new ResponseEntity(issue, HttpStatus.OK)
 <h3>
 <a id="step-6" class="anchor" href="#step-6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 6</h3>
 
-<p>Great work so far. Try to create the last three endpoints on your own with these informations.</p>
+<p>Great work so far. Try to create the last three endpoints on your own, with the following information.</p>
 
-<p>A endpoint to retrieve a list of all issues   </p>
+<p>An endpoint to retrieve a list of all issues   </p>
 
 <pre><code>GET /issues 
 issueRepository.findAll()
 </code></pre>
 
-<p>A endpoint to delete an issue                 </p>
+<p>An endpoint to delete an issue                 </p>
 
 <pre><code>DELETE /issues/{id} 
 issueRepository.delete(issueId)
 </code></pre>
 
-<p>A endpoint to update an issue             </p>
+<p>An endpoint to update an issue             </p>
 
 <pre><code>PUT /issues/{id} 
 issueRepository.save(issue);
@@ -206,14 +206,14 @@ issueRepository.save(issue);
 204 NO_CONTENT
 </code></pre>
 
-<p>Unitl now we only implemented success calls, let's add fail responses to our endpoints. Here is one example to do a not found error. </p>
+<p>Until now we only implemented success calls; let's add fail responses to our endpoints. Here is one example to do a not <me>NOT_FOUND</me> error. </p>
 
 <pre><code>if(issue == null) {
     return new ResponseEntity("Issue with the id: "+id+" not found.", HttpStatus.NOT_FOUND);
 }
 </code></pre>
 
-<p>Try on your own to implement the LENGTH_REQUIRED for the value title&gt;3.
+      <p>Try on your own to implement the <me>LENGTH_REQUIRED</me> for the <me>value</me> title&gt;3.
 Good luck :).</p>
 
 <p>We hope you had some fun to implement a restful api.</p>
