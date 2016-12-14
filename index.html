@@ -206,14 +206,14 @@ issueRepository.save(issue);
 204 NO_CONTENT
 </code></pre>
 
-<p>Until now we only implemented success calls; let's add fail responses to our endpoints. Here is one example to do a not <me>NOT_FOUND</me> error. </p>
+<p>Until now we have only implemented success calls; let's add fail responses to our endpoints. Here is one example to do a not <em>NOT_FOUND</em> error. </p>
 
 <pre><code>if(issue == null) {
     return new ResponseEntity("Issue with the id: "+id+" not found.", HttpStatus.NOT_FOUND);
 }
 </code></pre>
 
-      <p>Try on your own to implement the <me>LENGTH_REQUIRED</me> for the <me>value</me> title&gt;3.
+      <p>Try on your own to implement the <me>LENGTH_REQUIRED</me> for the <em>value</em> title&gt;3.
 Good luck :).</p>
 
 <p>We hope you had some fun to implement a restful api.</p>
