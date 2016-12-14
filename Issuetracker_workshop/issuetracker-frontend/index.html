@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Issue Tracker for JEE 2016 Workshop on RESTful</title>
+
+        <link rel="stylesheet" href="css/libs/oj/v2.2.0/alta/oj-alta-min.css" type="text/css"/>
+        <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+
+        <script data-main="js/main" src="js/libs/require/require.js"></script>
+    </head>
+
+    <body>
+        <div id="globalBody">
+            <header>
+                <div id="divBrandBar" class="demo-brand-bar short">
+                    <div class="oj-flex oj-flex-items-pad">
+                        <div id="divHeaderContainer" class="oj-flex-item oj-sm-12 oj-md-12 demo-container demo-brand-container page-padding">                        
+                            <a id="aBranding" class="demo-branding" href="#">
+                                <img class="demo-logo" alt="Oracle" src="css/images/t.gif"/>
+                                <span id="spanProductName">Issue Tracker for JEE 2016 Workshop on RESTful</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="oj-flex oj-flex-items-pad">
+                <div id="mainContent" class="oj-flex-item oj-sm-12 oj-md-12 demo-page-content-area page-padding">
+                    <div class="page-padding">
+                        <div class="demo-grid-sizes demo-flex-display">
+                            <div class="oj-flex oj-flex-items-pad">
+                                <div id="issueListWrapper" class="oj-sm-4 oj-flex-item">
+                                    <div class="oj-flex oj-flex-items-pad">
+                                        <div class="oj-sm-12 oj-flex-item">
+                                            <h2>My Issues</h2>
+                                        </div>
+                                    </div>
+
+                                    <div class="oj-panel oj-margin oj-flex oj-flex-items-pad">
+                                        <div class="oj-sm-12 oj-flex-item">
+                                            <div class="oj-flex oj-flex-items-pad">
+                                                <div class="oj-flex-item deprecated-col-default-width">
+                                                    <label for="spinnercontrol">Issue Id</label>
+                                                </div>
+
+                                                <div class="oj-flex-item deprecated-col-default-width">
+                                                    <input id="issueIdInput"
+                                                           data-bind="ojComponent: {
+                                                           component: 'ojInputNumber',
+                                                           max: 2000, min: 0, step: 1, value: inputIssueId, disabled: true, rootAttributes: {style:'max-width:100%'}}"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="oj-flex oj-flex-items-pad" style="margin-top: 10px;">
+                                                <div class="oj-flex-item deprecated-col-default-width">
+                                                    <label for="inputcontrol">Issue Title</label>
+                                                </div>
+
+                                                <div class="oj-flex-item deprecated-col-default-width">
+                                                    <input id="issueTitleInput"
+                                                           data-bind="ojComponent: {
+                                                           component: 'ojInputText', 
+                                                           value: inputIssueTitle, rootAttributes: {style:'max-width:100%'}}"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="oj-flex oj-flex-items-pad" style="margin-top: 30px;">
+                                                <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-flex-end oj-flex-item deprecated-col-default-width">
+                                                    <div data-bind="ojComponent: {component: 'ojButtonset'}">
+                                                        <button id="addbutton"
+                                                                data-bind="click: addIssue, 
+                                                                ojComponent: { component: 'ojButton', label: 'Add' }">
+                                                        </button>
+                                                        <button id="updateButton"
+                                                                data-bind="click: updateIssue, 
+                                                                ojComponent: { component: 'ojButton', label: 'Update' }">
+                                                        </button>
+                                                        <button id="removeButton"
+                                                                data-bind="click: removeIssue, 
+                                                                ojComponent: { component: 'ojButton', label: 'Remove' }">
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="oj-panel oj-margin oj-flex oj-flex-items-pad" style="padding-bottom: 20px;">
+                                        <div class="oj-sm-12 oj-flex-item">
+                                            <table id="issueList" summary="Issue List" aria-label="Issue List"
+                                                   data-bind="ojComponent: {component: 'ojTable', 
+                                                   data: datasource,
+                                                   columnsDefault: {sortable: 'none'}, 
+                                                   columns: [{headerText: 'Issue Id', field: 'id'},
+                                                             {headerText: 'Issue Title', field: 'title'}], rootAttributes: {style:'width:100%'}}">
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="oj-sm-8 oj-flex-item">
+                                    <div id='tagCloudWrapper'>
+                                        <h2>Issue Tag Cloud</h2>
+                                      
+                                        <div id="tagcloud1" data-bind="ojComponent:{
+                                            component: 'ojTagCloud',
+                                            layout: 'cloud',
+                                            animationOnDisplay: 'auto',
+                                            animationOnDataChange: 'auto',
+                                            items: tags
+                                        }"
+                                        style="clear:left;width:100%;height:400px;">
+                                        </div>
+
+                                        <div style="width:100%;">
+                                            <div style="padding-left:16px; display:inline-block">
+                                                <button id= "button1" aria-controls="tagcloud1" data-bind="click: valueButtonClick, ojComponent: {component: 'ojButton', label: 'Update values'}"></button>
+                                            </div>
+                                            <!--
+                                            <div style="padding-left:16px; display:inline-block">
+                                                <button id= "button2" aria-controls="tagcloud1" data-bind="click: colorButtonClick, ojComponent: {component: 'ojButton', label: 'Update colors'}"></button>
+                                            </div>
+                                            <div style="padding-left:16px; display:inline-block">
+                                                <button id= "button3" aria-controls="tagcloud1" data-bind="click: itemButtonClick, ojComponent: {component: 'ojButton', label: 'Add/Remove item'}"></button>
+                                            </div>
+                                            -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="oj-helper-clearfix">
+                <div class="oj-flex oj-flex-items-pad">
+                    <div id="footerContent" class="page-margin">
+                        <ul class="footerLinks">
+                            <li><a href="http://sebivenlo.github.io/Restful">Workshop Page on GitHub</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

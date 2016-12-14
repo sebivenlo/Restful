@@ -1,0 +1,66 @@
+[
+  {
+    "id": "John",
+    "14-17": 63.7,
+    "18-34": 83.2,
+    "35-54": 74.1,
+    "total": 76.8,
+    "url": "https://www.facebook.com"
+  },
+  {
+    "id": "footbal",
+    "14-17": 81.9,
+    "18-34": 77.6,
+    "35-54": 54.2,
+    "total": 66.4,
+    "url": "https://www.youtube.com"
+  },
+  {
+    "id": "invitations",
+    "14-17": 31,
+    "18-34": 38.7,
+    "35-54": 28.3,
+    "total": 32.8,
+    "url": "https://twitter.com"
+  },
+  {
+    "id": "cat",
+    "14-17": 56.4,
+    "18-34": 37.2,
+    "35-54": 16,
+    "total": 28.5,
+    "url": "https://instagram.com"
+  },
+  {
+    "id": "Andi",
+    "14-17": 24.6,
+    "18-34": 25,
+    "35-54": 20,
+    "total": 22.7,
+    "url": "https://plus.google.com"
+  },
+  {
+    "id": "kindergarden",
+    "14-17": 1.5,
+    "18-34": 15.9,
+    "35-54": 20,
+    "total": 16.6,
+    "url": "https://www.linkedin.com"
+  },
+  {
+    "id": "SOFA",
+    "14-17": 36.8,
+    "18-34": 21.1,
+    "35-54": 4.2,
+    "total": 14.2,
+    "url": "https://www.snapchat.com"
+  },
+  {
+    "id": "football",
+    "14-17": 23.8,
+    "18-34": 15.6,
+    "35-54": 5.7,
+    "total": 11.5,
+    "url": "https://www.tumblr.com"
+  }
+]
