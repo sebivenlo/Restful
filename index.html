@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Restful by sebivenlo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Restful</h1>
+      <h2 class="project-tagline">Restful workshop material</h2>
+      <a href="https://github.com/sebivenlo/Restful" class="btn">View on GitHub</a>
+      <a href="https://github.com/sebivenlo/Restful/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/sebivenlo/Restful/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="restful" class="anchor" href="#restful" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Restful</h1>
+
+<p>Before you start make sure you have installed an Netbeans and an Restful client.</p>
+
+<h3>
+<a id="step-1" class="anchor" href="#step-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 1</h3>
+
+<p>Import the project from github in your IDEA. Run the project and open your Restful client. Try to call http://localhost:8080.
+Did you find the file? Great, now check the other files in the project out.</p>
+
+<p>A short explanation of the project files:
+"IssueTrackerCompleteApplication" initialize the springframwork.
+"Issue" is the model class.
+"IssueController" defines the endpoints.
+"IssueRespository" is the temporarily database that holds the data when its running.</p>
+
+<h3>
+<a id="step-2" class="anchor" href="#step-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 2</h3>
+
+<p>Let's start with the first endpoint in the IssueController.
+Create a mehtod that a string returns. For example:</p>
+
+<pre><code>public String firstEndpoint() {
+    return "You wrote your first endpoint.";
+}
+</code></pre>
+
+<p>To make the endpoint callable, add the annotation.</p>
+
+<pre><code>@RequestMapping(value="/firstendpoint", method=RequestMethod.GET)
+</code></pre>
+
+<p>The spring framework map the method with the annotation <em>@RequestMapping</em> to a url path. To seperate each method a url is defined, the variable <em>value</em> define the second part of the url after http://localhost:8080. 
+In this example:</p>
+
+<pre><code>http://localhost:8080/firstendpoint
+</code></pre>
+
+<p>Try to call the endpoint with your restful client.
+<strong>Important if the api is running stop it before you run it again.</strong></p>
+
+<h3>
+<a id="step-3" class="anchor" href="#step-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 3</h3>
+
+<p>Lets start with a small project <em>Issue Tracker</em>. Your task is it to implement the api for the GUI.</p>
+
+<p>Already implemented are</p>
+
+<ul>
+<li>Model</li>
+<li>Database</li>
+</ul>
+
+<p>ToDo:
+A endpoint to retieve an issue  </p>
+
+<pre><code>GET /issues/{id} 
+</code></pre>
+
+<p>A endpoint to create an issue   </p>
+
+<pre><code>POST /issues
+</code></pre>
+
+<p>A endpoint to delete an issue                 </p>
+
+<pre><code>DELETE /issues/{id} 
+</code></pre>
+
+<p>A endpoint to update an issue                 </p>
+
+<pre><code>PUT /issues/{id} 
+</code></pre>
+
+<p>A endpoint to retrieve a list of all issues   </p>
+
+<pre><code>GET /issues 
+</code></pre>
+
+<h3>
+<a id="step-4" class="anchor" href="#step-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 4</h3>
+
+<p>Start with the endpoint that retrieve an certain issue. Create a methode like in step 2. Change the url path to:</p>
+
+<pre><code>/issues/{id}
+</code></pre>
+
+<p>To get a ceratin issue we send a http request with the id in the url to the endpoint. To read the id out of the url we add a parameter in the method.</p>
+
+<pre><code>@PathVariable long id
+</code></pre>
+
+<p>The return value and response has to be upadeted to:</p>
+
+<pre><code>ResponseEntity&lt;Void&gt;
+return new ResponseEntity(issue, HttpStatus.OK)
+</code></pre>
+
+<p>The last step is to find the object with the id in the database.</p>
+
+<pre><code>Issue current = issueRepository.findOne(id);
+</code></pre>
+
+<p>Before we can test it, we need to add an issue.</p>
+
+<h3>
+<a id="step-5" class="anchor" href="#step-5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 5</h3>
+
+<p>For that create a new endpoint "addIssue":</p>
+
+<pre><code>POST /issues
+</code></pre>
+
+<p>Create a method like descripted in the steps before. To define from which Content-Type the http request is, add in the annotation:</p>
+
+<pre><code>consumes=MediaType.APPLICATION_JSON_VALUE
+</code></pre>
+
+<p>This define the how the body of the http request should be written. For our endpoint. To read the values from the http request add the following to the parameter in the method:</p>
+
+<pre><code>@RequestBody Issue issue
+</code></pre>
+
+<p>Add the Issue object to the database and check out which <em>HttpStatus</em> response would be great for this endpoint:</p>
+
+<pre><code>issueRepository.save(new Issue(issue.title, issue.category));
+</code></pre>
+
+<p>Now we can test it. Goto to you restful client call the endpoint and dont forget the body must be json. 
+<em>Hint don't forget to change the Content-Type.</em></p>
+
+<pre><code>Content-Type: application/json
+</code></pre>
+
+<p>JSON Body:</p>
+
+<pre><code>{
+    "title": "Tire",
+    "category": "Car"
+}
+</code></pre>
+
+<pre><code>POST on http://localhost:8080/issues
+</code></pre>
+
+<p>After adding some issues try to call a certain issue with a id.</p>
+
+<pre><code>GET on http://localhost:8080/issues/1
+</code></pre>
+
+<h3>
+<a id="step-6" class="anchor" href="#step-6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 6</h3>
+
+<p>Great work so far. Try to create the last three endpoints on your own with these informations.</p>
+
+<p>A endpoint to retrieve a list of all issues   </p>
+
+<pre><code>GET /issues 
+issueRepository.findAll()
+</code></pre>
+
+<p>A endpoint to delete an issue                 </p>
+
+<pre><code>DELETE /issues/{id} 
+issueRepository.delete(issueId)
+</code></pre>
+
+<p>A endpoint to update an issue             </p>
+
+<pre><code>PUT /issues/{id} 
+issueRepository.save(issue);
+</code></pre>
+
+<h3>
+<a id="step-7" class="anchor" href="#step-7" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 7</h3>
+
+<p>The last step is about exceptions with restful. Maybe you already noticed that the enum HttpStatus holds a lot of status codes. For example: </p>
+
+<pre><code>404 NOT_FOUND
+411 LENGTH_REQUIRED
+200 OK
+201 CREATED
+204 NO_CONTENT
+</code></pre>
+
+<p>Unitl now we only implemented success calls, let's add fail responses to our endpoints. Here is one example to do a not found error. </p>
+
+<pre><code>if(issue == null) {
+    return new ResponseEntity("Issue with the id: "+id+" not found.", HttpStatus.NOT_FOUND);
+}
+</code></pre>
+
+<p>Try on your own to implement the LENGTH_REQUIRED for the value title&gt;3.
+Good luck :).</p>
+
+<p>We hope you had some fun to implement a restful api.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/sebivenlo/Restful">Restful</a> is maintained by <a href="https://github.com/sebivenlo">sebivenlo</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
